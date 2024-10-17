@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html, body{
+            height: 100%;
+            width: 100%;
+        }
+        button{
+            padding: 20px 40px;
+            padding-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            border: 0;
+            background-color: tomato;
+            color: #000;
+            border-radius: 27px;
+            margin: 100px 0 20px 100px;
+            cursor: pointer;
+
+        }
+        button:hover{
+            background-color: rgb(196, 74, 52);
+            color: #fff;
+        }
+        .ctn{
+            width: 98%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            /* background-color: red; */
+            height: auto;
+            margin-left: 30px;
+            margin-top: 40px;
+        }
+        .ctn p{
+            height: 200px;
+            width: 400px;
+            border: 0;
+            padding: 10px;
+            border-radius: 14px;
+            box-shadow: 3px 4px 8px 4px black;
+            text-align: top left;
+            font-size: 20px;
+            outline: none;
+            margin: 10px 10px 20px 0px;
+            /* overflow: hidden; */
+            overflow-y: s;
+            position: relative;
+        }
+        .ctn p span{
+            position: absolute;
+            font-size: 30px;
+            z-index: 99;
+            height: 100px;
+            width: 100px;
+            left: 400px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <button>New Note</button>
+    <div class="ctn">
+        <p contenteditable="true"></p>
+        
+    </div>
+    <script src="script.js"></script>
+    <script>
+        let button = document.querySelector('button');
+let container = document.querySelector('.ctn');
+
+// Load existing content from localStorage
+container.innerHTML = localStorage.getItem('container') || '';
+
+// Function to save the current content to localStorage
+const saveContent = () => {
+    localStorage.setItem('container', container.innerHTML);
+};
+
+// Event listener for adding new editable paragraphs
+button.addEventListener('click', () => {
+    let p = document.createElement('p');
+    p.setAttribute('contenteditable', 'true');
+    p.addEventListener('input', saveContent); // Save on input
+    container.appendChild(p);
+    p.focus(); // Focus on the new paragraph
+});
+
+// Load existing paragraphs and attach input listener
+const notes = document.querySelectorAll('p');
+notes.forEach(nt => {
+    nt.addEventListener('input', saveContent);
+});
+
+
+
+
+    </script>
+</body>
+</html>
